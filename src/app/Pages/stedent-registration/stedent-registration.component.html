@@ -1,0 +1,71 @@
+<div class="w-full h-full flex p-4 space-x-4" *ngIf="student">
+  <div class="w-[40%] rounded">
+
+    <div class="w-full bg-white p-2 rounded-md shadow-lg">
+      <div class="w-full flex flex-wrap p-4">
+        <div class="w-[60%]">
+          <img class="" src="assets/Images/floatleftlogo.png" alt="" srcset="">
+          <p class="text-center font-bold text-red-600">Student <br> {{student.studentNo}}</p>
+          <div class="text-sm text-gray-700">
+            <p> {{student.name+" "+ student.surname}}</p>
+            <p> {{student.email}}</p>
+            <p> {{student.phone}}</p>
+          </div>
+
+        </div>
+        <div class="w-[40%] flex justify-center items-center">
+          <i class="fa-solid fa-user text-blue-100  text-[7rem]"></i>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="my-2 justify-end flex">
+      <button class="text-white  py-2 bg-blue-300 shadow-md rounded-md w-1/3">Update</button>
+    </div>
+
+    <div class="rounded bg-white shadow-lg h-[30vh] p-2">
+      <p class="text-lg text-gray-300 font-extrabold">Subject New subject</p>
+    </div>
+
+  </div>
+  <div class="w-[60%] bg-white rounded-md shadow-md border p-3">
+    <p class="text-lg font-semibold text-gray-600">Erollemt Details</p>
+    <div *ngIf="student.course">
+      <div class="text-gray-700 text-sm">
+        <p>Course Name: {{student.course}}</p>
+        <p>Course Code: {{student.courseCode}}</p>
+        <p>Course Regitered Date: {{student.enrolDate | date}} </p>
+        <p>Course NQF Level: {{student.courseLevel}} </p>
+      </div>
+      <br>
+      <hr>
+      <br>
+      <p class="text-gray-700 text-base font-medium">Subject Registered</p>
+      <br>
+      <table class="w-full" border="1">
+        <thead class="border-b-2 !p-2 text-start text-gray-600">
+          <tr>
+            <th class="text-start">Subject Code</th>
+            <th class="text-start">Subject Name</th>
+            <th class="text-start">Attendance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="h-10 border-b text-gray-700" *ngFor="let subject of student.subjectList">
+            <td>{{ subject.subjectCode }}</td>
+            <td>{{ subject.subjectName }}</td>
+            <td>{{ subject.attendance ? subject.attendance+'%' : "No record" }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <table>
+
+      </table>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,40 @@
+<div class="w-full h-full flex p-4 space-x-4" *ngIf="lecture">
+    <div class="w-[40%] rounded">
+
+        <div class="w-full bg-white p-2 rounded-md shadow-lg">
+                <div class="w-full flex flex-wrap p-4" >
+                  <div class="w-[60%]">
+                    <img class="" src="assets/Images/floatleftlogo.png" alt="" srcset="">
+                    <p class="text-center font-bold text-red-600">Lecturer <br> {{lecture.staffNo}}</p>
+                    <div class="text-sm text-gray-700">
+                        <p>  {{lecture.name+" "+ lecture.surname}}</p>
+                        <p>  {{lecture.email}}</p>
+                        <p>  {{lecture.phone}}</p>
+                    </div>
+                    
+                  </div>
+                  <div class="w-[40%] flex justify-center items-center">
+                           <i class="fa-solid fa-user text-blue-100  text-[7rem]"></i>
+                  </div>
+                </div>
+               <hr>
+        </div>
+
+        <div class="my-2 justify-end flex" >
+               
+        </div>
+
+       <div class="rounded bg-white shadow-lg h-[30vh] p-2 hidden">
+        <p class="text-lg text-lime-300 font-extrabold">Subject New subject</p>
+       </div>
+        
+    </div>
+    <div class="w-[60%] bg-white rounded-md shadow-md border p-3">
+        <p class="text-lg font-semibold text-gray-600">Subject Assigned</p>
+        <div class="w-full border-b flex justify-between text-gray-600 my-4 p-1" *ngFor="let item of subjectList">
+           <span>{{item.subjectCode +" "+item.subjectName}}</span> 
+           <!-- <button class="rounded text-white p-2 bg-red-400">Remove</button> -->
+        </div>
+    </div>
+
+</div>

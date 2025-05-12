@@ -1,0 +1,9 @@
+thead tr th{
+    text-align: start;
+    padding: 10px;
+    color: skyblue;
+}
+tbody tr td{
+    padding: 10px;
+    color: grey;
+}

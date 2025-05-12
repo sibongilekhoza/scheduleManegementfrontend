@@ -1,0 +1,102 @@
+<div class="w-full bg-white h-full p-2" >
+    <form class="w-full  text-gray-700" [formGroup]="Form" (ngSubmit)="submit()">
+        <p class="w-full font-semibold text-3xl my-2 text-blue-300">Add new Lecture</p>
+        <p class="font-semibold text-lg">Personal Details</p>
+        <div class="flex space-x-4">
+            <div class="w-1/2">
+                <div class="flex space-x-3">
+                    <div class="w-full flex flex-col space-y-2">
+                        <label class="font-bold text-sm text-gray-800" for="subjectName"> Name</label>
+                        <input formControlName="name" id="name" class="w-full bg-gray-200 rounded-md p-2.5 outline-blue-300" placeholder="Enter Name" type="text">
+                        <div class="text-xs italic" *ngIf="Form.get('name')?.errors && (Form.get('name')?.dirty || Form.get('name')?.touched)">
+                            <div *ngIf="Form.get('name')?.hasError('required')">
+                                <span class="text-red-500">Name is required</span>
+                            </div>
+                            <div *ngIf="Form.get('name')?.hasError('maxlength')">
+                                <span class="text-red-500">Maximum length exceeded</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-col space-y-2">
+                        <label class="font-bold text-sm text-gray-800" for="subjectName"> Surname</label>
+                        <input formControlName="surname" id="surname" class="w-full bg-gray-200 rounded-md p-2.5 outline-blue-300" placeholder="Enter surname" type="text">
+                        <div class="text-xs italic" *ngIf="Form.get('surname')?.errors && (Form.get('surname')?.dirty || Form.get('surname')?.touched)">
+                            <div *ngIf="Form.get('surname')?.hasError('required')">
+                                <span class="text-red-500">Surname is required</span>
+                            </div>
+                            <div *ngIf="Form.get('surname')?.hasError('maxlength')">
+                                <span class="text-red-500">Maximum length exceeded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex space-x-3">
+                    <div class="w-full flex flex-col space-y-2">
+                        <label class="font-bold text-sm text-gray-800" for="email"> Email</label>
+                        <input formControlName="email" id="email" class="w-full bg-gray-200 rounded-md p-2.5 outline-blue-300" placeholder="Enter Email" type="text">
+                        <div class="text-xs italic" *ngIf="Form.get('email')?.errors && (Form.get('email')?.dirty || Form.get('email')?.touched)">
+                            <div *ngIf="Form.get('email')?.hasError('required')">
+                                <span class="text-red-500">Email is required</span>
+                            </div>
+                            <div *ngIf="Form.get('email')?.hasError('email')">
+                                <span class="text-red-500">Email not valid</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-col space-y-2">
+                        <label class="font-bold text-sm text-gray-800" for="subjectName"> Phone</label>
+                        <input formControlName="phone" id="phone" class="w-full bg-gray-200 rounded-md p-2.5 outline-blue-300" placeholder="Enter phone No" type="phone">
+                        <div class="text-xs italic" *ngIf="Form.get('phone')?.errors && (Form.get('phone')?.dirty || Form.get('phone')?.touched)">
+                            <div *ngIf="Form.get('phone')?.hasError('required')">
+                                <span class="text-red-500">Phone no is required</span>
+                            </div>
+                            <div *ngIf="Form.get('phone')?.hasError('maxlength')">
+                                <span class="text-red-500">Maximum length exceeded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-1/2">
+                    <div class="w-full flex flex-col space-y-2">
+                        <label class="font-bold text-sm text-gray-800" for="subjectName"> Password</label>
+                        <input formControlName="password" id="phone" class="w-full bg-gray-200 rounded-md p-2.5 outline-blue-300" placeholder="Enter password" type="password">
+                        <div class="text-xs italic" *ngIf="Form.get('password')?.errors && (Form.get('password')?.dirty || Form.get('password')?.touched)">
+                            <div *ngIf="Form.get('password')?.hasError('required')">
+                                <span class="text-red-500">Passowrd no is required</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-1/2">
+                <p class="text-sm text-gray-600 font-semibold">ASSIGN SUBJECT</p>
+                <div class="my-3 w-10/12">
+                    <div class="flex flex-col  ">
+                        <label class="text-gray-600 text-base flex justify-between w-full" *ngFor="let subject of sujectList">
+                           <span> {{ subject.subjectCode+"\t    ---   "+ subject.subjectName}}</span>
+                          <input class="text-lg p-3 text-blue-300" type="checkbox" [checked]="subjects.value.includes(subject)" (change)="toggleSelection(subject)">
+                          
+                        </label>
+                      </div>
+                </div>
+          
+            </div>
+      
+        
+        </div>
+
+    
+    <br>
+
+    <div class="w-full flex justify-end">
+    <button type="submit" [disabled]="Form.invalid" [class.bg-blue-300]="!Form.invalid" [class.bg-gray-300]="Form.invalid" class="py-2 shadow-xl w-1/4 text-white  rounded font-medium text-lg">Save</button>
+</div>
+    <div *ngIf="errorMsg" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-2 rounded relative" role="alert">
+        <strong class="font-bold">Error!</strong> &nbsp;
+        <span class="block sm:inline">{{errorMsg}}</span>
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+        </span>
+      </div>
+</form>
+</div>

@@ -1,0 +1,85 @@
+<div class="w-full  h-full bg-white" *ngIf="course">
+    <p class="p-4 text-fuchsia-800 font-extrabold text-3xl">Update course</p>
+    <div class="flex">
+    <div class="w-1/2 flex justify-center items-start">
+        <form class="w-full mx-5 text-gray-700" [formGroup]="CourseForm" (ngSubmit)="addCourse()">
+            <div class="flex space-x-2">
+                <div class="w-2/3 flex flex-col space-y-2">
+                    <label class="font-bold text-gray-800" for="courseName">Course Name</label>
+                    <input formControlName="courseName" id="courseName" class="w-full bg-gray-200 rounded-md p-2.5 outline-fuchsia-500" placeholder="Enter Course Name" type="text">
+                    <div class="text-xs italic" *ngIf="CourseForm.get('courseName')?.errors && (CourseForm.get('courseName')?.dirty || CourseForm.get('courseName')?.touched)">
+                        <div *ngIf="CourseForm.get('courseName')?.hasError('required')">
+                            <span class="text-red-500">Course Name is required</span>
+                        </div>
+                        <div *ngIf="CourseForm.get('courseName')?.hasError('maxlength')">
+                            <span class="text-red-500">Maximum length exceeded</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-1/3 flex flex-col space-y-2">
+                    <label class="font-bold text-gray-800" for="courseCode">Course Code</label>
+                    <input formControlName="courseCode" id="courseCode" class="w-full bg-gray-200 rounded-md p-2.5 outline-fuchsia-500" placeholder="Enter Course Code" type="text">
+                    <div class="italic text-xs" *ngIf="CourseForm.get('courseCode')?.errors && (CourseForm.get('courseCode')?.dirty || CourseForm.get('courseCode')?.touched)">
+                        <div *ngIf="CourseForm.get('courseCode')?.hasError('required')">
+                            <span class="text-red-500">Course Code is required</span>
+                        </div>
+                        <div *ngIf="CourseForm.get('courseCode')?.hasError('pattern')">
+                            <span class="text-red-500">Only alphanumeric characters allowed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-1/3 flex flex-col space-y-2">
+                <label class="font-bold text-gray-800" for="courseLevel">Course NQF Level</label>
+                <select formControlName="courseLevel" id="courseLevel" class="w-full bg-gray-200 rounded-md p-2.5 outline-fuchsia-500">
+                    <option value="" disabled>--Select Level</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <div *ngIf="CourseForm.get('courseLevel')?.errors && (CourseForm.get('courseLevel')?.dirty || CourseForm.get('courseLevel')?.touched)">
+                    <div class="p-0" *ngIf="CourseForm.get('courseLevel')?.hasError('required')">
+                        <span class="text-red-500 text-xs">Please select Course Level</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-full flex flex-col space-y-2">
+                <label class="font-bold text-gray-800" for="courseDescription">Course Description</label>
+                <textarea formControlName="courseDescription" id="courseDescription" class="w-full bg-gray-200 rounded-md h-28 p-3 outline-fuchsia-500" placeholder="Enter Course Description"></textarea>
+                <div class="text-xs italic" *ngIf="CourseForm.get('courseDescription')?.errors && (CourseForm.get('courseDescription')?.dirty || CourseForm.get('courseDescription')?.touched)">
+                    <div *ngIf="CourseForm.get('courseDescription')?.hasError('required')">
+                        <span class="text-red-500">Course Description is required</span>
+                    </div>
+                    <div *ngIf="CourseForm.get('courseDescription')?.hasError('maxlength')">
+                        <span class="text-red-500">Maximum length exceeded</span>
+                    </div>
+                </div>
+            </div>
+        
+            <br>
+        
+            <button type="submit" [disabled]="CourseForm.invalid" [class.bg-fuchsia-700]="!CourseForm.invalid" [class.bg-gray-300]="CourseForm.invalid" class="py-2 shadow-xl w-full text-white  rounded font-medium text-lg">Update </button>
+
+            <div *ngIf="errorMsg" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-2 rounded relative" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{errorMsg}}</span>
+                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                  <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                </span>
+              </div>
+        </form>
+        
+    </div>
+    <div class="w-1/2 flex justify-center items-start">
+        <img class="w-2/3  h-fit" src="assets/Images/sub.png" alt="" srcset="">
+    </div>
+</div>
+
+
+</div>
+

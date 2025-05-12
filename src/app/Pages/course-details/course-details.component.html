@@ -1,0 +1,134 @@
+<div class="bg-white h-full p-4">
+    <div class="w-full" *ngIf="course" >
+            <button routerLink="/Dashboard" class="bg-gray-300 px-5 py-2 rounded shadow-lg text-white" > Go Back</button>
+    </div>
+    <div class="my-2 bg-blue-500 p-4 rounded-md shadow-lg border bg-opacity-50">
+        <div class="flex text-lg text-white font-medium  justify-between">
+            <p>Cource Name : {{course.courseName}} </p>
+            <p>Cource Code: {{course.courseCode}} </p>
+            <p>NQF Level :{{course.courseLevel}} </p>
+        </div>
+        <div class="my-2">
+            <p class="text-sm font-semibold text-white">Deccription</p>
+            <p class="italic text-sm text-white">{{course.courseDescription}}</p>
+        </div>
+      
+    </div>
+
+    <div class="flex">
+        <div class="w-2/3 p-3">
+
+            <p class=" font-semibold text-gray-600">Subjects</p>
+            <table class="rounded-lg" mat-table [dataSource]="dataSource" >
+               
+                <ng-container  matColumnDef="code">
+                    <th class="!bg-blue-400 text-white h-7" mat-header-cell *matHeaderCellDef mat-sort-header>Code</th>
+                    <td mat-cell *matCellDef="let item"> {{ item.subjectCode }} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="name">
+                    <th class="!bg-blue-400 text-white h-7" mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let item"> {{ item.subjectName }} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="level">
+                    <th class="!bg-blue-400 text-white h-7" mat-header-cell *matHeaderCellDef mat-sort-header> Level </th>
+                    <td mat-cell *matCellDef="let item"> {{ item.subjectLevel }} </td>
+                </ng-container>
+              
+              
+                <ng-container matColumnDef="Action">
+                    <th class="!bg-blue-400 text-white h-7" mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let student"> 
+                        <div class="flex space-x-2">
+                            
+                            <button (click)="delete(student)"  class="bg-red-300 py-1 px-3 rounded shadow-lg text-white">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+              
+                <!-- Define header row -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              
+                <!-- Define data rows -->
+                <tr mat-row *matRowDef="let student; columns: displayedColumns;"></tr>
+
+                <ng-container matNoDataRow>
+                    <tr>
+                        <td class="mat-cell" [attr.colspan]="displayedColumns.length">No records found</td>
+                    </tr>
+                </ng-container>
+            </table>
+            
+            <!-- Add paginator -->
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+        </div>
+
+        <div class="w-1/3">
+
+            <p class=" font-semibold text-blue-400 text-xl">{{header}}</p>
+            <form class="w-full  text-gray-700" [formGroup]="Form" (ngSubmit)="subject()">
+                
+                    <div class="w-full flex flex-col space-y-2">
+                        <label class="font-medium text-sm text-gray-400" for="subjectName">Subject  Name</label>
+                        <input formControlName="subjectName" id="subjectName" class="w-full bg-gray-200 rounded-md p-2.5 outline-blue-300" placeholder="Enter Subject Name" type="text">
+                        <div class="text-xs italic" *ngIf="Form.get('subjectName')?.errors && (Form.get('subjectName')?.dirty || Form.get('subjectName')?.touched)">
+                            <div *ngIf="Form.get('subjectName')?.hasError('required')">
+                                <span class="text-red-500">Subject Name is required</span>
+                            </div>
+                            <div *ngIf="Form.get('subjectName')?.hasError('maxlength')">
+                                <span class="text-red-500">Maximum length exceeded</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-col space-y-2">
+                        <label class="font-medium text-sm text-gray-400" for="courseCode">Subject Code</label>
+                        <input formControlName="subjectCode" id="courseCode" class="w-full bg-gray-200 rounded-md p-2.5 outline-blue-300" placeholder="Enter Subject Code" type="text">
+                        <div class="italic text-xs" *ngIf="Form.get('subjectCode')?.errors && (Form.get('subjectCode')?.dirty || Form.get('subjectCode')?.touched)">
+                            <div *ngIf="Form.get('subjectCode')?.hasError('required')">
+                                <span class="text-red-500">Subject Code is required</span>
+                            </div>
+                            <div *ngIf="Form.get('subjectCode')?.hasError('pattern')">
+                                <span class="text-red-500">Only alphanumeric characters allowed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="w-full flex flex-col space-y-2">
+                    <label class="font-medium text-sm text-gray-400" for="subjectLevel">Level</label>
+                    <select formControlName="subjectLevel" id="courseLevel" class="w-full bg-gray-200 rounded-md p-2.5 outline-blue-300">
+                        <option value="" disabled>--Select Level</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="6">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <div *ngIf="Form.get('subjectLevel')?.errors && (Form.get('subjectLevel')?.dirty || Form.get('subjectLevel')?.touched)">
+                        <div class="p-0" *ngIf="Form.get('subjectLevel')?.hasError('required')">
+                            <span class="text-red-500 text-xs">Please select Level</span>
+                        </div>
+                    </div>
+                </div>
+                
+          
+            
+                <br>
+            
+                <button type="submit" [disabled]="Form.invalid" [class.bg-blue-300]="!Form.invalid" [class.bg-gray-300]="Form.invalid" class="py-2 shadow-xl w-1/2 mx-[25%] text-white  rounded font-medium text-lg">{{bntText}}</button>
+    
+                <div *ngIf="errorMsg" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-2 rounded relative" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{errorMsg}}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                      <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                    </span>
+                  </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>

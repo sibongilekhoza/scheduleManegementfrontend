@@ -1,0 +1,85 @@
+<div class="w-full h-full flex p-4 space-x-4" *ngIf="lecture">
+    <div class="w-1/3 rounded">
+
+        <div class="w-full bg-white p-2 rounded-md shadow-lg">
+                <div class="w-full flex flex-wrap p-4" >
+                  <div class="w-[60%]">
+                    <img class="" src="assets/Images/floatleftlogo.png" alt="" srcset="">
+                    <p class="text-center font-bold text-red-600">Lecturer <br> {{lecture.staffNo}}</p>
+                    <div class="text-sm text-gray-700">
+                        <p>  {{lecture.name+" "+ lecture.surname}}</p>
+                      
+                    </div>
+                    
+                  </div>
+                  <div class="w-[40%]">
+                    <img class="rounded-full border" src="assets/Images/lecture1.png" alt="" srcset="">
+                  </div>
+                </div>
+               <hr>
+        </div>
+
+
+        <br>
+       <div class="rounded bg-white shadow-lg h-[30vh] p-2">
+        <p class="text-lg font-semibold text-gray-600">Subject Assigned</p>
+        <div class="w-full border-b text-sm flex justify-between text-gray-600 my-4 p-1" *ngFor="let item of subjectList">
+           <span>{{item.subjectCode +" "+item.subjectName}}</span> 
+        </div>
+       </div>
+        
+    </div>
+    <div class="w-2/3 bg-white rounded-md shadow-md border p-3 overflow-auto hide-scrollbar   ">
+
+        <ng-container *ngIf="timeTable.length>0; else elseTemplate">
+          <table class="timetable w-full border rounded-lg shadow-md mt-4">
+            <thead class="border-b">
+              <tr>
+                <th>Time</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b" *ngFor="let timeSlot of times">
+                    <td class="border-r">{{ timeSlot.time }}</td>
+                    <td class="border-r" *ngFor="let day of [0, 1, 2, 3, 4, 5]">
+                      <div *ngFor="let subject of timeTable">
+                        <span *ngIf="subject.period === timeSlot.id && subject.weekDays === day">{{ subject.subject }} <br> {{lecture.surname}}</span>
+                      </div>
+                    </td>
+                    
+                  </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="timetable  ">
+            <div class="day" *ngFor="let day of days">
+              <div class="day-header text-lg font-semibold text-gray-700">{{day.name }}</div>
+              <div class="time-slots ml-[10%]">
+                <div class="time-slot flex space-x-2 my-2" *ngFor="let timeSlot of day.timeSlots">
+                  <div class="time">{{ timeSlot.time }}</div>
+                  <select class="border p-1 text-gray-400 text-sm rounded" name="" id=""
+                          (change)="addToFormArray(day.id, timeSlot.id, $event)">
+                    <option disabled selected class="text-gray-400 text-sm" value="">-- Select Subject --</option>
+                    <option *ngFor="let sub of subjectList" class="text-gray-400 text-sm" [value]="sub.id">{{ sub.subjectName }}</option>
+                  </select>
+                </div>
+                
+              </div>
+            </div>
+            <button (click)="saveData()" class="px-3 py-2 bg-blue-300 rounded-md text-white shadow-md">Save Time Table</button>
+          </div>
+        </ng-template>
+        
+    
+          
+          
+    </div>
+
+</div>

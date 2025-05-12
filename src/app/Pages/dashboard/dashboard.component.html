@@ -1,0 +1,40 @@
+<div class="w-full m-auto  h-[100vh]">
+    <div class="flex w-full h-full">
+        <div class="w-[17%] h-full bg-gray-700">
+            <div class="bg-white p-4 h-[12vh]">
+                <img class=" h-[8vh]" src="/assets/Images/floatleftlogo.png" alt="" srcset="">
+            </div>
+            <div class="w-11/12 m-auto mt-7">
+                <ul class="text-gray-600 text-sm capitalize  ">
+                    <li *ngFor="let item of navList" [routerLink]="[item.route]" routerLinkActive="active-link"
+                        class=" flex space-x-2 text-white items-center mb-[1px] border-blue-300 px-10 py-2 text-base rounded-md hover:border hover:text-blue-300 hover:font-medium active:font-medium">
+                        <i class="text-2xl {{item.icon}}"></i>
+                        &nbsp;
+                        {{item.label}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="w-[83%]">
+            <div class=" border-b h-[12vh] p-6 w-full flex justify-between">
+                <p class=" text-2xl font-black  text-gray-500">Class Booking <span class="text-blue-300">Managements </span> </p>
+                <div class="flex justify-center items-center space-x-4">
+                    <i class="fa-solid fa-circle-user text-gray-400 text-2xl"></i>
+                        <span>  {{stuff.name}} {{stuff.surname}}  </span>   
+                    <button (click)="logout()" class="flex items-center space-x-2 bg-gray-300 text-white rounded px-3 py-1">
+                        <i class="fa-solid fa-power-off text-2xl"></i>
+                        &nbsp;
+                        Log out
+                    </button>
+                </div>
+            </div>
+            <div class=" bg-center bg-cover ">
+                <div
+                    class="w-[98%] hide-scrollbar h-[83vh] m-[1%] overflow-y-auto border rounded-lg bg-white bg-opacity-50 ">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

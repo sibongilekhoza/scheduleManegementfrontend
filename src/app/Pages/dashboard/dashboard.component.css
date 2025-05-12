@@ -1,0 +1,9 @@
+.text-shadow{
+    text-shadow: 2px 2px 2px black;
+}
+.active-link {
+    border: 1px solid #93c5fd;
+    color: #93c5fd;
+    font-weight: 500;
+    
+  }
